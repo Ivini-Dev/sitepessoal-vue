@@ -91,15 +91,14 @@
         </div>
         <div class="project-content">
           <h3>Ivini LeadBot</h3>
-          <p>Plataforma de prospecção automatizada que une web scraping no Google Maps, geração de landing pages via IA (Ollama) e automação de pré-venda via WhatsApp (Evolution API / Groq) para comerciantes locais.</p>
+          <p>Plataforma de prospecção automatizada que une web scraping no Google Maps, geração de landing pages via IA e automação de pré-venda via WhatsApp para comerciantes locais.</p>
           <div class="tech-tags" style="margin-bottom: 1.5rem;">
             <span class="tag">PHP / Laravel</span>
             <span class="tag">Nuxt.js</span>
             <span class="tag">Tailwind CSS</span>
-            <span class="tag">Web Scraping</span>
-            <span class="tag">Ollama</span>
-            <span class="tag">Groq / Llama 3</span>
-            <span class="tag">Evolution API</span>
+            <span class="tag">Web Scraping (Python)</span>
+            <span class="tag">inteligência Artificial</span>
+            <span class="tag">Automação Whatsapp</span>
           </div>
           <div class="project-footer">
             <a 
