@@ -87,22 +87,6 @@
             >
               <div class="chatbot-bubble">
                 <p class="chatbot-bubble-text" v-html="msg.html"></p>
-
-                <!-- Card de Ação Direta caso concluído -->
-                <div v-if="msg.actionUrl" class="chatbot-action-card">
-                  <a
-                    :href="msg.actionUrl"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-cta chatbot-whatsapp-btn"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="17" height="17" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                    </svg>
-                    <span>Abrir Conversa no WhatsApp</span>
-                  </a>
-                </div>
-
                 <span class="chatbot-time">{{ msg.time }}</span>
               </div>
             </div>
@@ -395,7 +379,7 @@ async function handleSubmit() {
     isTyping.value = true
     scrollToBottom()
 
-    const result = await dispatchLeadToEvolution({
+    await dispatchLeadToEvolution({
       name: leadData.value.name,
       phone: leadData.value.phone,
       email: leadData.value.email,
@@ -406,46 +390,26 @@ async function handleSubmit() {
     isTyping.value = false
     isSending.value = false
 
-    const waUrl = buildFallbackWhatsAppUrl()
-
-    if (result.sentViaApi) {
-      addMessage(
-        'bot',
-        `Tudo pronto, <strong>${escapeHtml(leadData.value.name)}</strong>! Acabei de disparar seu briefing via <strong>Evolution API</strong> para o WhatsApp do <strong>Johnatan Ivini</strong> e enviei uma confirmação para <strong>${escapeHtml(leadData.value.phone)}</strong>.<br><br>Se desejar, você também pode abrir a conversa direta clicando abaixo ou continuar enviando detalhes por aqui:`,
-        waUrl
-      )
-    } else {
-      addMessage(
-        'bot',
-        `Perfeito, <strong>${escapeHtml(leadData.value.name)}</strong>! Seu briefing técnico sobre <strong>${escapeHtml(leadData.value.topic)}</strong> foi estruturado.<br><br>Clique no botão abaixo para sincronizar e continuar o atendimento imediatamente no WhatsApp do <strong>Johnatan Ivini</strong>:`,
-        waUrl
-      )
-    }
+    addMessage(
+      'bot',
+      `Tudo pronto, <strong>${escapeHtml(leadData.value.name)}</strong>! ✅<br><br>Seu briefing sobre <strong>${escapeHtml(leadData.value.topic)}</strong> foi registrado e enviado automaticamente via <strong>Evolution API</strong> para o <strong>Johnatan Ivini</strong>.<br><br>Você receberá o link do seu orçamento diretamente no WhatsApp (<strong>${escapeHtml(leadData.value.phone)}</strong>)${leadData.value.email ? ` e no e-mail <strong>${escapeHtml(leadData.value.email)}</strong>` : ''}. Se quiser acrescentar mais algum detalhe técnico, basta digitar aqui abaixo:`
+    )
     return
   }
 
   if (step.value === 'completed') {
     isSending.value = true
-    const res = await sendFollowUpToEvolution({
+    await sendFollowUpToEvolution({
       name: leadData.value.name,
       phone: leadData.value.phone,
       text: raw
     })
     isSending.value = false
 
-    const waUrl = buildFallbackWhatsAppUrl()
-    if (res.sentViaApi) {
-      await botReply(
-        'Mensagem complementar encaminhada via <strong>Evolution API</strong> para o WhatsApp do especialista!',
-        400
-      )
-    } else {
-      await botReply(
-        'Mensagem anotada! Você pode enviar diretamente no WhatsApp clicando abaixo:',
-        400,
-        waUrl
-      )
-    }
+    await botReply(
+      'Mensagem complementar sincronizada automaticamente com o especialista via <strong>Evolution API</strong>!',
+      400
+    )
   }
 }
 

@@ -244,12 +244,36 @@ export function useChatbot() {
    * Envia mensagem complementar em tempo real após o briefing inicial
    */
   async function sendFollowUpToEvolution({ name, phone, text }) {
+    const visitorPhone = cleanPhone(phone)
+    const remoteFollowUpUrl = String(config.public?.leadsApiUrl || 'https://cliente.ivini.dev/api/leads')
+      .trim()
+      .replace(/\/+$/, '') + '/followup'
+
+    try {
+      const res = await fetch(remoteFollowUpUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          name: sanitizeTxtField(name),
+          phone: visitorPhone ? `+${visitorPhone}` : sanitizeTxtField(phone),
+          text: sanitizeTxtField(text)
+        })
+      })
+      if (res.ok) {
+        return { sentViaApi: true }
+      }
+    } catch (_) {
+      // fallback below
+    }
+
     const evoConfig = config.public?.evolution || {}
-    const baseUrl = String(evoConfig.apiUrl || 'https://bot.buxin.com.br').replace(/\/+$/, '')
-    const instance = String(evoConfig.instance || 'IviniLeadsBots').trim()
+    const baseUrl = String(evoConfig.apiUrl || 'https://zap.reforcy.com.br').replace(/\/+$/, '')
+    const instance = String(evoConfig.instance || 'ivini_dev').trim()
     const apiKey = String(evoConfig.apiKey || '').trim()
     const adminPhone = cleanPhone(evoConfig.adminPhone || '5585991179809')
-    const visitorPhone = cleanPhone(phone)
 
     if (!baseUrl || !instance || !apiKey) {
       return { sentViaApi: false }
