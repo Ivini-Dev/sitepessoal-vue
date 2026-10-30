@@ -66,13 +66,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      leadsApiUrl: process.env.NUXT_PUBLIC_LEADS_API_URL || 'https://cliente.ivini.dev/api/leads',
-      evolution: {
-        apiUrl: process.env.NUXT_PUBLIC_EVOLUTION_API_URL || 'https://bot.buxin.com.br',
-        instance: process.env.NUXT_PUBLIC_EVOLUTION_INSTANCE || 'IviniLeadsBots',
-        apiKey: process.env.NUXT_PUBLIC_EVOLUTION_API_KEY || 'BuxinEvolutionSecretKey2026',
-        adminPhone: process.env.NUXT_PUBLIC_ADMIN_PHONE || '5585991179809'
-      }
+      leadsApiUrl: process.env.NUXT_PUBLIC_LEADS_API_URL || 'https://cliente.ivini.dev/api/leads'
     }
   },
 

@@ -46,8 +46,8 @@ export function useChatbot() {
   }
 
   /**
-   * Salva o lead capturado no arquivo leads.txt no backend de clientes.ivini.dev,
-   * na rota Nitro local (/api/leads) e em cache local de segurança.
+   * Salva o lead capturado no arquivo leads.txt no backend de cliente.ivini.dev
+   * (que também dispara automaticamente via Evolution API) e na rota local quando em localhost.
    */
   async function saveCapturedLead({ name, phone, email = '', topic, details }) {
     const now = new Date()
@@ -84,8 +84,9 @@ export function useChatbot() {
     const remoteUrl = String(config.public?.leadsApiUrl || 'https://cliente.ivini.dev/api/leads').trim()
     let savedRemotely = false
     let savedLocally = false
+    let whatsappStatus = { admin_sent: false, visitor_sent: false }
 
-    // 2. Envia diretamente para cliente.ivini.dev/api/leads (produção e local)
+    // 2. Envia diretamente para https://cliente.ivini.dev/api/leads (grava em storage/app/leads.txt + dispara Evolution API no backend)
     if (remoteUrl) {
       try {
         const res = await fetch(remoteUrl, {
@@ -97,157 +98,69 @@ export function useChatbot() {
           body: JSON.stringify(payload)
         })
         savedRemotely = res.ok
+        if (res.ok) {
+          const data = await res.json().catch(() => ({}))
+          if (data?.whatsapp) {
+            whatsappStatus = data.whatsapp
+          }
+        }
       } catch (_) {
         savedRemotely = false
       }
     }
 
-    // 3. Envia também para a rota local (/api/leads) quando disponível
-    try {
-      const localRes = await fetch('/api/leads', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
-      savedLocally = localRes.ok
-    } catch (_) {
-      savedLocally = false
+    // 3. Apenas em ambiente de desenvolvimento local (localhost / 127.0.0.1), grava também no Nitro local (/api/leads)
+    const isLocalhost =
+      typeof window !== 'undefined' &&
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+
+    if (isLocalhost) {
+      try {
+        const localRes = await fetch('/api/leads', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify(payload)
+        })
+        savedLocally = localRes.ok
+      } catch (_) {
+        savedLocally = false
+      }
     }
 
     return {
       id,
       txtLine,
       savedRemotely,
-      savedLocally
+      savedLocally,
+      whatsappStatus
     }
-  }
-
-  async function sendPresence(baseUrl, instance, apiKey, number) {
-    try {
-      await fetch(`${baseUrl}/chat/sendPresence/${encodeURIComponent(instance)}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: apiKey
-        },
-        body: JSON.stringify({
-          number,
-          delay: 1500,
-          presence: 'composing'
-        })
-      })
-    } catch (_) {
-      // Ignora erro de presença silenciosamente
-    }
-  }
-
-  async function sendText(baseUrl, instance, apiKey, number, text) {
-    const response = await fetch(`${baseUrl}/message/sendText/${encodeURIComponent(instance)}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        apikey: apiKey
-      },
-      body: JSON.stringify({
-        number,
-        text,
-        linkPreview: true
-      })
-    })
-
-    if (!response.ok) {
-      const errBody = await response.text().catch(() => '')
-      throw new Error(`Evolution API HTTP ${response.status}: ${errBody}`)
-    }
-
-    return await response.json().catch(() => ({ ok: true }))
   }
 
   /**
-   * Salva o lead no arquivo .txt (clientes.ivini.dev + local) e dispara o resumo
-   * para o WhatsApp do especialista e do visitante via Evolution API.
+   * Salva o lead no arquivo .txt em https://cliente.ivini.dev/api/leads e dispara
+   * automaticamente via Evolution API pelo backend (sem chamadas diretas do navegador para bot.buxin.com.br).
    */
   async function dispatchLeadToEvolution({ name, phone, email = '', topic, details }) {
-    // Grava o lead em arquivo .txt para uso no clientes.ivini.dev
     const leadRecord = await saveCapturedLead({ name, phone, email, topic, details })
 
-    const evoConfig = config.public?.evolution || {}
-    const baseUrl = String(evoConfig.apiUrl || 'https://bot.buxin.com.br').replace(/\/+$/, '')
-    const instance = String(evoConfig.instance || 'IviniLeadsBots').trim()
-    const apiKey = String(evoConfig.apiKey || '').trim()
-    const adminPhone = cleanPhone(evoConfig.adminPhone || '5585991179809')
-    const visitorPhone = cleanPhone(phone)
-
-    const adminMessage = [
-      '🚀 *Novo Lead Capturado — Ivini.dev*',
-      '',
-      `👤 *Nome:* ${name}`,
-      `📱 *WhatsApp:* +${visitorPhone}`,
-      email ? `✉️ *E-mail:* ${email}` : null,
-      `🎯 *Interesse:* ${topic}`,
-      `📝 *Escopo / Detalhes:* ${details}`,
-      '',
-      '📂 *Salvo em:* leads.txt (pronto para orçamento em clientes.ivini.dev)'
-    ]
-      .filter((line) => line !== null)
-      .join('\n')
-
-    const visitorMessage = [
-      `Olá, *${name}*! 👋`,
-      '',
-      `Recebemos seu contato pelo chatbot da *Ivini.dev* sobre *${topic}*.`,
-      `📝 *Resumo enviado:* "${details}"`,
-      '',
-      'O *Johnatan Ivini* já recebeu seu briefing técnico e enviará sua proposta/orçamento em instantes!'
-    ].join('\n')
-
-    if (!baseUrl || !instance || !apiKey) {
-      return {
-        sentViaApi: false,
-        reason: 'missing_credentials',
-        adminPhone,
-        visitorPhone,
-        leadRecord
-      }
-    }
-
-    try {
-      await sendPresence(baseUrl, instance, apiKey, adminPhone)
-      await sendText(baseUrl, instance, apiKey, adminPhone, adminMessage)
-
-      if (visitorPhone && visitorPhone.length >= 12) {
-        await sendPresence(baseUrl, instance, apiKey, visitorPhone)
-        await sendText(baseUrl, instance, apiKey, visitorPhone, visitorMessage)
-      }
-
-      return {
-        sentViaApi: true,
-        adminPhone,
-        visitorPhone,
-        leadRecord
-      }
-    } catch (error) {
-      return {
-        sentViaApi: false,
-        reason: error?.message || 'request_failed',
-        adminPhone,
-        visitorPhone,
-        leadRecord
-      }
+    return {
+      sentViaApi: Boolean(leadRecord.savedRemotely || leadRecord.savedLocally),
+      leadRecord
     }
   }
 
   /**
-   * Envia mensagem complementar em tempo real após o briefing inicial
+   * Envia mensagem complementar em tempo real após o briefing inicial via backend cliente.ivini.dev
    */
   async function sendFollowUpToEvolution({ name, phone, text }) {
     const visitorPhone = cleanPhone(phone)
-    const remoteFollowUpUrl = String(config.public?.leadsApiUrl || 'https://cliente.ivini.dev/api/leads')
-      .trim()
-      .replace(/\/+$/, '') + '/followup'
+    const remoteFollowUpUrl =
+      String(config.public?.leadsApiUrl || 'https://cliente.ivini.dev/api/leads')
+        .trim()
+        .replace(/\/+$/, '') + '/followup'
 
     try {
       const res = await fetch(remoteFollowUpUrl, {
@@ -262,27 +175,7 @@ export function useChatbot() {
           text: sanitizeTxtField(text)
         })
       })
-      if (res.ok) {
-        return { sentViaApi: true }
-      }
-    } catch (_) {
-      // fallback below
-    }
-
-    const evoConfig = config.public?.evolution || {}
-    const baseUrl = String(evoConfig.apiUrl || 'https://zap.reforcy.com.br').replace(/\/+$/, '')
-    const instance = String(evoConfig.instance || 'ivini_dev').trim()
-    const apiKey = String(evoConfig.apiKey || '').trim()
-    const adminPhone = cleanPhone(evoConfig.adminPhone || '5585991179809')
-
-    if (!baseUrl || !instance || !apiKey) {
-      return { sentViaApi: false }
-    }
-
-    try {
-      const followUpMsg = `💬 *Mensagem complementar de ${name}* (+${visitorPhone}):\n${text}`
-      await sendText(baseUrl, instance, apiKey, adminPhone, followUpMsg)
-      return { sentViaApi: true }
+      return { sentViaApi: res.ok }
     } catch (_) {
       return { sentViaApi: false }
     }
