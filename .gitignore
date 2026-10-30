@@ -90,4 +90,5 @@ dist
 *.swp
 
 # Captured leads local storage
+leads.txt
 storage/leads.txt
