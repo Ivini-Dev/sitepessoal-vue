@@ -11,10 +11,12 @@
       <a href="#stack">Tech Stack</a>
       <a href="#contato">Contato</a>
     </nav>
-    <a :href="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-cta">Fale Comigo</a>
+    <button type="button" class="btn-cta" @click="openChatbot()">Fale Comigo</button>
   </header>
 </template>
 
 <script setup>
-const whatsappUrl = 'https://wa.me/5585991179809?text=Ol%C3%A1%20Ivini!%20Vi%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto.'
+import { useChatbot } from '~/composables/useChatbot'
+
+const { openChatbot } = useChatbot()
 </script>

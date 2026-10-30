@@ -24,10 +24,10 @@
         </p>
 
         <div class="hero-actions">
-          <a :href="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-cta btn-hero-primary">
+          <button type="button" class="btn-cta btn-hero-primary" @click="openChatbot()">
             <span>Falar com Especialista</span>
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
+          </button>
           <a href="#servicos" class="btn-cta-secondary">
             Ver Soluções
           </a>
@@ -71,8 +71,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useChatbot } from '~/composables/useChatbot'
 
-const whatsappUrl = 'https://wa.me/5585991179809?text=Ol%C3%A1%20Ivini!%20Vi%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto.'
+const { openChatbot } = useChatbot()
 
 const heroTrackRef = ref(null)
 const canvasRef = ref(null)

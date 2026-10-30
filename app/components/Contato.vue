@@ -5,7 +5,9 @@
       <p>Vamos conversar sobre a arquitetura do seu próximo SaaS, modernização de sistemas legados em PHP/Laravel, automações com IA ou sustentação corporativa contínua.</p>
     </div>
     <div class="contact-actions">
-      <a :href="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-cta" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Entrar em Contato via WhatsApp</a>
+      <button type="button" class="btn-cta" style="padding: 1rem 2.5rem; font-size: 1.1rem;" @click="openChatbot()">
+        Iniciar Atendimento no Chat
+      </button>
     </div>
     <div class="contact-links" aria-label="Canais oficiais e redes profissionais">
       <a href="https://github.com/johnatanivini" target="_blank" rel="noopener noreferrer" class="contact-channel-link">GitHub (@johnatanivini) ↗</a>
@@ -18,5 +20,7 @@
 </template>
 
 <script setup>
-const whatsappUrl = 'https://wa.me/5585991179809?text=Ol%C3%A1%20Ivini!%20Vi%20seu%20site%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto.'
+import { useChatbot } from '~/composables/useChatbot'
+
+const { openChatbot } = useChatbot()
 </script>

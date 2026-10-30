@@ -2,6 +2,7 @@
   <div id="top">
     <ClientOnly>
       <NetworkCanvas />
+      <ChatbotModal />
     </ClientOnly>
     <Menu />
     <Sections />
