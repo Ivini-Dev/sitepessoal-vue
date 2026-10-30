@@ -1,41 +1,41 @@
 <template>
-  <section id="stack" class="section">
+  <section id="stack" class="section" aria-labelledby="stack-heading">
     <div class="section-title">
-      <h2>Stack Tecnológica & Skills</h2>
-      <p>Ferramentas, linguagens e metodologias aplicadas na entrega de produtos de alto valor.</p>
+      <h2 id="stack-heading">Stack Tecnológica & Skills</h2>
+      <p>Ferramentas, linguagens e metodologias aplicadas na entrega de produtos corporativos de alto valor.</p>
     </div>
     <div class="stack-grid">
       <div class="stack-item">
-        <h4>PHP 8 & Laravel</h4>
-        <span>Backend & APIs</span>
+        <h3>PHP 8 & Laravel</h3>
+        <span>Backend & APIs Escaláveis</span>
       </div>
       <div class="stack-item">
-        <h4>Vue.js & TailwindCSS</h4>
-        <span>Frontend Moderno</span>
+        <h3>Vue.js, Nuxt & Tailwind</h3>
+        <span>Frontend Reativo & SSR</span>
       </div>
       <div class="stack-item">
-        <h4>MySQL</h4>
-        <span>Modelagem & Performance</span>
+        <h3>MySQL, PostgreSQL & Redis</h3>
+        <span>Modelagem, Cache & Filas</span>
       </div>
       <div class="stack-item">
-        <h4>Google Cloud</h4>
-        <span>Cloud & Escalabilidade</span>
+        <h3>Google Cloud & Linux</h3>
+        <span>Cloud, Deploy & Escalabilidade</span>
       </div>
       <div class="stack-item">
-        <h4>Docker & Linux</h4>
-        <span>Containers & Infra</span>
+        <h3>Docker & Traefik</h3>
+        <span>Containers & Infraestrutura</span>
       </div>
       <div class="stack-item">
-        <h4>Javascript</h4>
-        <span>Interatividade Web</span>
+        <h3>Automação & IA Generativa</h3>
+        <span>Playwright, LLMs & WhatsApp</span>
       </div>
       <div class="stack-item">
-        <h4>Clean Code</h4>
-        <span>Arquitetura Limpa</span>
+        <h3>Clean Code & SOLID</h3>
+        <span>Arquitetura Limpa & Segura</span>
       </div>
       <div class="stack-item">
-        <h4>Sustentação de Legados</h4>
-        <span>PHP 5+ / Migrações</span>
+        <h3>Sustentação de Legados</h3>
+        <span>PHP 5+ / Migrações Sem Downtime</span>
       </div>
     </div>
   </section>

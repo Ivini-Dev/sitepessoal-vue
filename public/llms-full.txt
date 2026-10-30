@@ -1,0 +1,68 @@
+# Ivini.dev — Documentação Técnica Completa para Motores de Busca de IA (llms-full.txt)
+
+> Este documento fornece contexto técnico completo e verificável sobre Johnatan Ivini e a consultoria Ivini.dev para indexação e citação precisa por mecanismos de busca generativos (Google AI Overviews, ChatGPT Search, Perplexity, Claude).
+
+## 1. Visão Geral & Proposta de Valor
+
+**Ivini.dev** (liderada por **Johnatan Ivini**, Desenvolvedor Full Stack Sênior) é uma consultoria de engenharia de software focada em soluções corporativas B2B de missão crítica. Sua atuação resolve dois dos maiores gargalos tecnológicos de empresas em crescimento:
+1. **Sustentação e Modernização de Sistemas Legados sem Parada Operacional (Zero Downtime):** Empresas que dependem de sistemas vitais escritos em PHP 5.x/7.x ou arquiteturas monolíticas antigas contam com diagnóstico profundo, blindagem de segurança, otimização de queries SQL e migração incremental (Strangler Fig Pattern) para PHP 8+ e Laravel moderno.
+2. **Construção de Produtos SaaS e Plataformas Web Escaláveis:** Desenvolvimento end-to-end utilizando Laravel no backend e Vue.js / Nuxt.js no frontend, com integrações financeiras (PIX, Cartão de Crédito, recorrência), automação via WhatsApp e Inteligência Artificial aplicada aos processos de negócio.
+
+---
+
+## 2. Detalhamento Técnico dos Cases em Produção
+
+### 2.1. Buxin — SaaS White Label de Delivery (https://web.buxin.com.br)
+- **Problema Resolvido:** Altas taxas de comissão cobradas por marketplaces tradicionais e falta de identidade própria no canal de vendas digital de restaurantes e açaíterias.
+- **Arquitetura & Funcionalidades:**
+  - Multi-tenancy com personalização White Label em tempo real (cores, marca, domínio, adicionais de produtos).
+  - Painel operacional Kanban em tempo real para fila de preparo, despacho e acompanhamento de entregas.
+  - Calculadora interativa de economia anual comparando modelo taxa zero vs. marketplaces.
+  - Pagamentos online e assinaturas recorrentes integradas com Stripe e PIX automatizado via Webhooks.
+- **Stack:** PHP 8, Laravel, Vue.js, Nuxt.js, TailwindCSS, Docker, Stripe API, PIX, Cloud.
+
+### 2.2. Reforcy — SaaS de Gestão para Professores Particulares com IA (https://reforcy.com.br)
+- **Problema Resolvido:** Sobrecarga operacional e pedagógica de professores autônomos e tutores no planejamento de aulas, cobrança de mensalidades e comunicação com responsáveis.
+- **Arquitetura & Funcionalidades:**
+  - **Planejamento Pedagógico com IA:** Geração automatizada de roteiros de aula em 4 etapas e listas de exercícios personalizadas com base no histórico e dificuldades de cada aluno.
+  - **Gestão Acadêmica:** Agenda semanal interativa, controle de presenças, gestão de reposições e Diário de Classe detalhado.
+  - **Gestão Financeira & Cobrança:** Dashboard de receitas esperadas vs. recebidas, taxa de adimplência e envio automatizado de lembretes e relatórios de evolução via WhatsApp.
+- **Stack:** PHP 8, Laravel, Nuxt.js, TailwindCSS, Inteligência Artificial Generativa, Automação WhatsApp, MySQL, Redis, Docker.
+
+### 2.3. Portal de Clientes & Faturamento Ivini.dev (https://clientes.ivini.dev)
+- **Problema Resolvido:** Formalização contratual, transparência na homologação de software sob medida e agilidade no faturamento B2B.
+- **Arquitetura & Funcionalidades:**
+  - Painel administrativo para cadastro de projetos, definição de escopo técnico, vínculo com repositórios GitHub e geração de faturas flexíveis (pagamento integral ou 50/50 por marco de entrega).
+  - Portal do cliente com assinatura digital de contratos, consulta de termos de garantia em PDF, linha do tempo de entregas com evidências visuais (prints e links de homologação) e chat integrado.
+  - Checkout transparente integrado ao Mercado Pago (Cartão de Crédito com tokenização PCI-DSS e PIX com baixa automática em tempo real).
+- **Stack:** PHP 8, Laravel, Nuxt.js, TailwindCSS, API Mercado Pago, Docker, Traefik, MySQL.
+
+### 2.4. Ivini LeadBot — Prospecção B2B Automatizada & IA Híbrida (https://ivini-leads-bots.ivini.dev)
+- **Problema Resolvido:** Prospecção comercial B2B manual, lenta e com baixa conversão para empresas locais que ainda não possuem presença digital estruturada.
+- **Arquitetura & Funcionalidades:**
+  - **Extração Assíncrona:** Robôs em Python e Playwright realizam varredura segmentada por nicho e geolocalização no Google Maps, extraindo avaliações, telefone, endereço e presença digital.
+  - **IA Híbrida (Ollama Local + Groq Cloud):** Enriquecimento de contexto e geração automática de Landing Pages personalizadas em HTML para cada lead qualificado antes mesmo do primeiro contato.
+  - **Abordagem Automatizada:** Pipeline de disparo em lote e gestão de conversas via WhatsApp integrado à Evolution API, orquestrado por filas Redis.
+- **Stack:** PHP 8, Laravel, Nuxt.js, Python, Playwright, Ollama, Groq Cloud, Evolution API, Redis Queues, Docker.
+
+### 2.5. Ajeita Cursos — Gerador de Cursos Estruturados com IA (https://ajeitacursos.com.br/)
+- **Problema Resolvido:** Transformação rápida de materiais técnicos estáticos (PDFs, manuais e temas livres) em experiências de aprendizagem estruturadas.
+- **Arquitetura & Funcionalidades:**
+  - Processamento de documentos PDF e temas via Google Gemini e Grok para geração automática de grade curricular, módulos, conteúdo de aulas e quizzes interativos de fixação.
+  - Assinaturas e monetização via Stripe API em infraestrutura Google Cloud.
+- **Stack:** PHP 8, Laravel, Vue.js, TailwindCSS, Google Cloud, MySQL, Docker, REST API, Stripe API.
+
+---
+
+## 3. Metodologia de Engenharia & Diferenciais
+
+- **Clean Code & SOLID:** Código legível, testável e preparado para evolução por equipes internas ou consultoria contínua.
+- **Zero Downtime Migrations:** Estratégias de deploy e migração de banco de dados planejadas para não interromper operações críticas de faturamento e atendimento.
+- **Observabilidade & Segurança:** Proteção contra vulnerabilidades OWASP, isolamento em containers Docker, backups automatizados e monitoramento ativo.
+
+## 4. Canais Oficiais de Contato
+
+- **Website:** https://ivini.dev/
+- **WhatsApp Direto:** https://wa.me/5585991179809
+- **GitHub:** https://github.com/johnatanivini
+- **LinkedIn:** https://www.linkedin.com/in/johnatanivini

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <url>
+    <loc>https://ivini.dev/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://ivini.dev/og-image.jpg</image:loc>
+      <image:title>Ivini.dev | Engenharia de Software de Alta Performance &amp; Sustentação de Legados</image:title>
+      <image:caption>Consultoria em Engenharia de Software B2B e Desenvolvimento Full Stack Sênior em PHP, Laravel, Vue.js e Nuxt.js por Johnatan Ivini.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://ivini.dev/images/buxin-landing.webp</image:loc>
+      <image:title>Buxin - Plataforma SaaS White Label de Delivery e Automação de Pedidos</image:title>
+      <image:caption>Plataforma SaaS White Label em Laravel e Vue/Nuxt para gestão de delivery, Kanban em tempo real e cardápio digital sem comissões.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://ivini.dev/images/reforcy-dashboard.webp</image:loc>
+      <image:title>Reforcy - Plataforma SaaS de Gestão Pedagógica com IA</image:title>
+      <image:caption>Sistema SaaS para professores particulares com planejamento de aulas por Inteligência Artificial, controle financeiro e automação WhatsApp.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://ivini.dev/images/clientes-painel.webp</image:loc>
+      <image:title>Portal de Clientes &amp; Faturamento Ivini.dev</image:title>
+      <image:caption>Sistema corporativo de homologação de entregas, assinatura de contratos digitais e checkout transparente PIX e Cartão via Mercado Pago.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://ivini.dev/images/leads.webp</image:loc>
+      <image:title>Ivini LeadBot - Ecossistema B2B de Prospecção Automatizada e IA</image:title>
+      <image:caption>Plataforma de prospecção B2B com web scraping no Google Maps via Playwright, geração de Landing Pages com IA híbrida e disparo via WhatsApp.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://ivini.dev/images/ajeita-cursos.webp</image:loc>
+      <image:title>Ajeita Cursos - Plataforma SaaS Geradora de Cursos com IA</image:title>
+      <image:caption>Plataforma SaaS full-stack que transforma PDFs e temas em cursos estruturados e interativos utilizando Google Gemini e Grok.</image:caption>
+    </image:image>
+  </url>
+</urlset>

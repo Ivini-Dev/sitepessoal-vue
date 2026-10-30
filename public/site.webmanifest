@@ -1,0 +1,23 @@
+{
+  "name": "Ivini.dev | Engenharia de Software & Soluções Corporativas",
+  "short_name": "Ivini.dev",
+  "description": "Consultoria em Engenharia de Software B2B e Desenvolvimento Full Stack Sênior em PHP, Laravel, Vue.js e Nuxt.js por Johnatan Ivini.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111315",
+  "theme_color": "#111315",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-ivini.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

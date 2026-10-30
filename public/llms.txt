@@ -1,0 +1,49 @@
+# Ivini.dev — Johnatan Ivini | Engenharia de Software & Soluções Corporativas
+
+> Ivini.dev é a consultoria de engenharia de software e portfólio profissional de Johnatan Ivini, Desenvolvedor Full Stack Sênior especializado em PHP (5.x a 8.x), Laravel, Vue.js, Nuxt.js, arquitetura de sistemas corporativos B2B, sustentação e migração de sistemas legados sem downtime, automações com Inteligência Artificial e infraestrutura Cloud/Docker.
+
+## Identidade & Contato
+
+- **Especialista Responsável:** Johnatan Ivini (Desenvolvedor Full Stack Sênior & Arquiteto de Software)
+- **Marca / Consultoria:** Ivini.dev — Soluções em Tecnologia
+- **Website Oficial:** https://ivini.dev/
+- **Portal de Clientes:** https://clientes.ivini.dev/
+- **WhatsApp Comercial:** https://wa.me/5585991179809
+- **GitHub:** https://github.com/johnatanivini
+- **LinkedIn:** https://www.linkedin.com/in/johnatanivini
+- **Localização / Atendimento:** Fortaleza, CE — Brasil (Atendimento B2B Nacional e Internacional)
+- **Idioma Principal:** Português (pt-BR)
+
+## Principais Serviços Corporativos (B2B)
+
+1. **Migração & Sustentação de Sistemas Legados (Zero Downtime):**
+   - Evolução gradual e segura de sistemas críticos em PHP 5.x/7.x para PHP 8.x e Laravel moderno.
+   - Eliminação de dívida técnica, refatoração guiada por Clean Code, blindagem de segurança e manutenção contínua 24/7 sem interrupção operacional.
+2. **Desenvolvimento de Aplicações Web, SaaS & APIs de Alta Performance:**
+   - Arquitetura e construção de plataformas SaaS multi-tenant, portais corporativos, ERPs customizados, microsserviços e REST APIs escaláveis com Laravel, Vue.js e Nuxt.js.
+   - Integração de gateways de pagamento (Stripe, Mercado Pago, PIX, Checkout Transparente) e webhooks de alta confiabilidade.
+3. **Automação de Processos, Inteligência Artificial & Engenharia de Dados:**
+   - Desenvolvimento de agentes de IA e fluxos automatizados combinando LLMs (Google Gemini, Groq, OpenAI, Ollama), Python/Playwright para extração de dados e integração oficial/não-oficial com WhatsApp (Evolution API).
+4. **Otimização de Performance, Cloud DevOps & Segurança WordPress/Web:**
+   - Containerização com Docker, proxy reverso Traefik, deploy automatizado em Google Cloud Platform (GCP) e Linux.
+   - Hardening de segurança, otimização de Core Web Vitals (LCP, INP, CLS), tuning de banco de dados (MySQL, PostgreSQL, Redis) e SEO Técnico.
+
+## Cases & Produtos SaaS em Produção
+
+- **[Buxin](https://web.buxin.com.br):** Plataforma SaaS White Label para gestão de delivery e automação de pedidos para restaurantes e açaíterias, com painel Kanban em tempo real, cardápio digital customizável e pagamentos integrados via Stripe e PIX sem taxas de intermediação.
+- **[Reforcy](https://reforcy.com.br):** Plataforma SaaS para professores particulares e tutores que centraliza gestão de alunos, agenda semanal, geração de planos de aula e listas de exercícios com Inteligência Artificial, diário de classe, fluxo de caixa e lembretes automáticos via WhatsApp.
+- **[Portal de Clientes & Faturamento Ivini.dev](https://clientes.ivini.dev):** Sistema corporativo próprio para gestão de contratos digitais, homologação visual de sprints/entregas, chat técnico e checkout transparente (PIX e Cartão via Mercado Pago).
+- **[Ivini LeadBot](https://ivini-leads-bots.ivini.dev):** Ecossistema B2B de prospecção automatizada com web scraping assíncrono no Google Maps (Python/Playwright), enriquecimento de leads, geração automática de Landing Pages com IA Híbrida (Ollama Local + Groq Cloud) e abordagem comercial via WhatsApp (Evolution API + Redis Queues).
+- **[Ajeita Cursos](https://ajeitacursos.com.br/):** Plataforma SaaS educacional que converte apostilas em PDF e temas específicos em cursos online estruturados com módulos, aulas e quizzes interativos gerados via IA (Google Gemini & Grok).
+
+## Stack Tecnológica Principal
+
+- **Backend:** PHP 8+, PHP Legado (5.x/7.x), Laravel, Python (Playwright / Automação), Node.js, RESTful APIs, Webhooks
+- **Frontend:** Vue.js 3, Nuxt.js 3/4, JavaScript (ES6+), TypeScript, TailwindCSS, HTML5 Semântico, CSS3
+- **Banco de Dados & Filas:** MySQL, PostgreSQL, Redis, Filas Assíncronas (Laravel Horizon / Queues)
+- **DevOps & Cloud:** Docker, Docker Compose, Traefik, Linux (Ubuntu/Debian), Google Cloud Platform (GCP), Nginx, CI/CD
+- **Integrações & IA:** Stripe API, Mercado Pago API (PIX/Cartão), Evolution API (WhatsApp), Google Gemini API, Groq API, Ollama
+
+## Documentação Completa para LLMs
+
+- Versão expandida com especificações detalhadas de arquitetura e cases: https://ivini.dev/llms-full.txt

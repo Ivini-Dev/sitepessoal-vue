@@ -1,11 +1,14 @@
 <template>
   <header>
-    <a href="#" class="logo"><img src="/empresa.png" alt="ivini.dev"/> Ivini<span>.Dev</span></a>
-    <nav>
+    <a href="#top" class="logo" aria-label="Ivini.dev - Ir para o topo">
+      <img src="/empresa.png" alt="Logo Ivini.dev" width="28" height="21" decoding="async" />
+      Ivini<span>.Dev</span>
+    </a>
+    <nav aria-label="Navegação principal">
       <a href="#servicos">Soluções</a>
       <a href="#projetos">Projetos</a>
-      <a href="#stack">Tech Stack</a>
       <a href="#sobre">Diferenciais</a>
+      <a href="#stack">Tech Stack</a>
       <a href="#contato">Contato</a>
     </nav>
     <a :href="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-cta">Fale Comigo</a>

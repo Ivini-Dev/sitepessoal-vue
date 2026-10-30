@@ -1,8 +1,8 @@
 <template>
-  <section ref="heroTrackRef" class="hero-scroll-track">
+  <section ref="heroTrackRef" class="hero-scroll-track" aria-label="Apresentação Ivini.dev">
     <div class="hero-sticky-container">
       <!-- Fundo de Desconstrução Renderizado via Keyframes em Canvas -->
-      <div class="hero-video-wrapper">
+      <div class="hero-video-wrapper" aria-hidden="true">
         <canvas ref="canvasRef" class="hero-video-canvas"></canvas>
         <div class="hero-video-overlay"></div>
         <div class="hero-bottom-fade"></div>
@@ -11,7 +11,7 @@
       <!-- Conteúdo Hero Interativo -->
       <div class="hero-content-inner">
         <div class="badge">
-          <span class="status-pulse"></span>
+          <span class="status-pulse" aria-hidden="true"></span>
           <span>Desenvolvedor Full Stack Sênior & Soluções Corporativas</span>
         </div>
 
@@ -20,13 +20,13 @@
         </h1>
 
         <p>
-          Especialista no ecossistema <strong>PHP (Laravel) & Vue/Nuxt</strong>, migrações críticas sem downtime e arquitetura robusta para negócios exigentes.
+          Especialista no ecossistema <strong>PHP (Laravel) & Vue/Nuxt</strong>, migrações críticas sem downtime, plataformas SaaS e arquitetura robusta para negócios exigentes.
         </p>
 
         <div class="hero-actions">
           <a :href="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-cta btn-hero-primary">
             <span>Falar com Especialista</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
           <a href="#servicos" class="btn-cta-secondary">
             Ver Soluções
@@ -35,24 +35,24 @@
 
         <div class="hero-trust-bar">
           <div class="trust-item">
-            <span class="trust-icon">⚡</span>
+            <span class="trust-icon" aria-hidden="true">⚡</span>
             <span>Zero Downtime</span>
           </div>
-          <div class="trust-divider">•</div>
+          <div class="trust-divider" aria-hidden="true">•</div>
           <div class="trust-item">
-            <span class="trust-icon">🛡️</span>
+            <span class="trust-icon" aria-hidden="true">🛡️</span>
             <span>Código Limpo & Seguro</span>
           </div>
-          <div class="trust-divider">•</div>
+          <div class="trust-divider" aria-hidden="true">•</div>
           <div class="trust-item">
-            <span class="trust-icon">🚀</span>
+            <span class="trust-icon" aria-hidden="true">🚀</span>
             <span>Alta Escalabilidade</span>
           </div>
         </div>
 
         <!-- Indicador Interativo de Keyframes -->
-        <div class="hero-scroll-cue" :class="{ 'cue-completed': scrollProgress >= 0.95 }">
-          <span class="cue-label">{{ scrollProgress < 0.95 ? 'ROLE PARA DESCONSTRUIR A INTERNET' : 'EXPLORAR SERVIÇOS E SOLUÇÕES' }}</span>
+        <div class="hero-scroll-cue" :class="{ 'cue-completed': scrollProgress >= 0.95 }" aria-hidden="true">
+          <span class="cue-label">{{ scrollProgress < 0.95 ? 'EXPLORAR' : 'SERVIÇOS & CASES' }}</span>
           <div class="cue-progress-bar">
             <div class="cue-progress-fill" :style="{ transform: `scaleX(${scrollProgress})` }"></div>
           </div>
@@ -74,20 +74,51 @@ const scrollProgress = ref(0)
 
 const START_FRAME = 120 // Começa nos 2.0s da animação (60fps) para preencher a tela instantaneamente
 const END_FRAME = 600
-const images = []
+const TOTAL_FRAMES = END_FRAME - START_FRAME + 1
+const images = new Array(TOTAL_FRAMES)
 let currentFrameIndex = 0
 let targetFrameIndex = 0
 let animFrameId = null
 let handleScroll = null
+let idleTimerId = null
+let intersectionObserver = null
+let isHeroVisible = true
 
-// Precarrega a sequência a partir dos 2.0s (frame 120 ao 600)
-function preloadKeyframes() {
-  for (let i = START_FRAME; i <= END_FRAME; i++) {
-    const img = new Image()
-    const frameNum = String(i).padStart(3, '0')
-    img.src = `/frames/frame_${frameNum}.jpg`
-    images.push(img)
+function getFrameSrc(frameNumber) {
+  return `/frames/frame_${String(frameNumber).padStart(3, '0')}.jpg`
+}
+
+// Precarrega primeiro o frame inicial (LCP) e depois carrega os demais em lotes leves
+function preloadKeyframes(onFirstFrameReady) {
+  const firstImg = new Image()
+  firstImg.decoding = 'async'
+  firstImg.fetchPriority = 'high'
+  firstImg.onload = () => {
+    if (onFirstFrameReady) onFirstFrameReady(firstImg)
+    scheduleRemainingFrames()
   }
+  firstImg.src = getFrameSrc(START_FRAME)
+  images[0] = firstImg
+}
+
+function scheduleRemainingFrames() {
+  let nextIndex = 1
+  const BATCH_SIZE = 10
+
+  const loadBatch = () => {
+    const limit = Math.min(TOTAL_FRAMES, nextIndex + BATCH_SIZE)
+    for (; nextIndex < limit; nextIndex++) {
+      const img = new Image()
+      img.decoding = 'async'
+      img.src = getFrameSrc(START_FRAME + nextIndex)
+      images[nextIndex] = img
+    }
+    if (nextIndex < TOTAL_FRAMES) {
+      idleTimerId = window.setTimeout(loadBatch, 60)
+    }
+  }
+
+  idleTimerId = window.setTimeout(loadBatch, 120)
 }
 
 function drawFrame(ctx, canvas, img) {
@@ -115,8 +146,6 @@ function drawFrame(ctx, canvas, img) {
 }
 
 onMounted(() => {
-  preloadKeyframes()
-
   const canvas = canvasRef.value
   const track = heroTrackRef.value
   if (!canvas || !track) return
@@ -130,28 +159,54 @@ onMounted(() => {
     canvas.style.width = window.innerWidth + 'px'
     canvas.style.height = window.innerHeight + 'px'
 
-    const rounded = Math.min(images.length - 1, Math.max(0, Math.round(currentFrameIndex)))
+    const rounded = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(currentFrameIndex)))
     if (images[rounded]) {
       drawFrame(ctx, canvas, images[rounded])
     }
   }
-  window.addEventListener('resize', handleResize)
+  window.addEventListener('resize', handleResize, { passive: true })
   handleResize()
 
-  // Loop de renderização 60fps com lerp suave de keyframe
+  preloadKeyframes((firstImg) => {
+    drawFrame(ctx, canvas, firstImg)
+  })
+
+  // Loop de renderização 60fps com lerp suave de keyframe (pausa quando fora da viewport)
   function renderLoop() {
+    if (!isHeroVisible) {
+      animFrameId = null
+      return
+    }
     const diff = targetFrameIndex - currentFrameIndex
     if (Math.abs(diff) > 0.005) {
       currentFrameIndex += diff * 0.14
-      const roundedIndex = Math.min(images.length - 1, Math.max(0, Math.round(currentFrameIndex)))
+      const roundedIndex = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(currentFrameIndex)))
       const img = images[roundedIndex]
-      if (img) {
+      if (img && img.complete) {
         drawFrame(ctx, canvas, img)
       }
     }
     animFrameId = requestAnimationFrame(renderLoop)
   }
-  animFrameId = requestAnimationFrame(renderLoop)
+
+  const startLoopIfNeeded = () => {
+    if (isHeroVisible && !animFrameId) {
+      animFrameId = requestAnimationFrame(renderLoop)
+    }
+  }
+
+  if ('IntersectionObserver' in window) {
+    intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        isHeroVisible = entries[0]?.isIntersecting ?? true
+        if (isHeroVisible) startLoopIfNeeded()
+      },
+      { threshold: 0.01 }
+    )
+    intersectionObserver.observe(track)
+  }
+
+  startLoopIfNeeded()
 
   // Cálculo da posição de scroll na trilha do Hero
   handleScroll = () => {
@@ -164,7 +219,8 @@ onMounted(() => {
     const clampedProgress = Math.max(0, Math.min(1, rawProgress))
 
     scrollProgress.value = clampedProgress
-    targetFrameIndex = Math.round(clampedProgress * (images.length - 1))
+    targetFrameIndex = Math.round(clampedProgress * (TOTAL_FRAMES - 1))
+    startLoopIfNeeded()
   }
 
   window.addEventListener('scroll', handleScroll, { passive: true })
@@ -172,6 +228,8 @@ onMounted(() => {
 
   onUnmounted(() => {
     if (animFrameId) cancelAnimationFrame(animFrameId)
+    if (idleTimerId) clearTimeout(idleTimerId)
+    if (intersectionObserver) intersectionObserver.disconnect()
     if (handleScroll) window.removeEventListener('scroll', handleScroll)
     window.removeEventListener('resize', handleResize)
   })

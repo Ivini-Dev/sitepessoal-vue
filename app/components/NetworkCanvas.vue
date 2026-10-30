@@ -1,5 +1,5 @@
 <template>
-  <canvas id="network-canvas" ref="canvasRef"></canvas>
+  <canvas id="network-canvas" ref="canvasRef" aria-hidden="true"></canvas>
 </template>
 
 <script setup>
