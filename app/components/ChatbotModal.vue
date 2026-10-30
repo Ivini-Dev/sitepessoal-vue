@@ -163,13 +163,23 @@ const isTyping = ref(false)
 const isSending = ref(false)
 const step = ref('topic') // 'topic' | 'name' | 'phone' | 'email' | 'details' | 'completed'
 
-const leadData = ref({
+const HOSTINGER_URL = 'https://www.hostinger.com/br?REFERRALCODE=YBXJOHNATHQV'
+const REGISTRO_BR_URL = 'https://registro.br/'
+
+const emptyLead = () => ({
   topic: '',
   name: '',
   phone: '',
   email: '',
+  company: '',
+  about: '',
+  colors: '',
+  hosting: '',
+  domain: '',
   details: ''
 })
+
+const leadData = ref(emptyLead())
 
 const messages = ref([])
 
@@ -191,9 +201,16 @@ const detailChips = [
   'Quero agendar uma call de diagnóstico técnico'
 ]
 
+const colorChips = ['Ainda não tenho cores definidas', 'Quero sugestões baseadas no meu logo']
+const hostingChips = ['Sim, já tenho hospedagem', 'Não tenho hospedagem']
+const domainChips = ['Sim, já tenho domínio registrado', 'Não tenho domínio ainda']
+
 const currentQuickReplies = computed(() => {
   if (step.value === 'topic') return topicChips
   if (step.value === 'email') return emailChips
+  if (step.value === 'colors') return colorChips
+  if (step.value === 'hosting') return hostingChips
+  if (step.value === 'domain') return domainChips
   if (step.value === 'details') return detailChips
   return []
 })
@@ -208,6 +225,16 @@ const inputPlaceholder = computed(() => {
       return '(85) 99999-9999 (Seu WhatsApp com DDD)'
     case 'email':
       return 'seu@email.com.br (opcional para envio de orçamento)'
+    case 'company':
+      return 'Nome da sua empresa ou marca...'
+    case 'about':
+      return 'Ex.: Clínica odontológica em Fortaleza, atendimento familiar...'
+    case 'colors':
+      return 'Ex.: Azul marinho e dourado, #0A2540...'
+    case 'hosting':
+      return 'Sim / Não (qual provedor?)'
+    case 'domain':
+      return 'Ex.: minhaempresa.com.br ou "não tenho"'
     case 'details':
       return 'Descreva brevemente o escopo ou objetivo...'
     default:
@@ -281,6 +308,11 @@ function buildFallbackWhatsAppUrl() {
     `*WhatsApp:* ${leadData.value.phone}`,
     leadData.value.email ? `*E-mail:* ${leadData.value.email}` : null,
     `*Interesse:* ${leadData.value.topic}`,
+    leadData.value.company ? `*Empresa:* ${leadData.value.company}` : null,
+    leadData.value.about ? `*Sobre:* ${leadData.value.about}` : null,
+    leadData.value.colors ? `*Cores:* ${leadData.value.colors}` : null,
+    leadData.value.hosting ? `*Hospedagem:* ${leadData.value.hosting}` : null,
+    leadData.value.domain ? `*Domínio:* ${leadData.value.domain}` : null,
     `*Detalhes:* ${leadData.value.details}`
   ]
     .filter(Boolean)
@@ -291,7 +323,7 @@ function buildFallbackWhatsAppUrl() {
 async function initConversation() {
   messages.value = []
   step.value = 'topic'
-  leadData.value = { topic: '', name: '', phone: '', email: '', details: '' }
+  leadData.value = emptyLead()
   inputValue.value = ''
 
   addMessage(
@@ -365,9 +397,66 @@ async function handleSubmit() {
   if (step.value === 'email') {
     const isSkip = raw.toLowerCase().includes('apenas pelo whatsapp') || raw.toLowerCase() === 'pular'
     leadData.value.email = isSkip ? '' : raw
+    step.value = 'company'
+    await botReply('Anotado! Qual é o <strong>nome da sua empresa</strong> ou marca?')
+    return
+  }
+
+  if (step.value === 'company') {
+    leadData.value.company = raw
+    step.value = 'about'
+    await botReply(
+      `Legal! Faça um <strong>breve comentário sobre a ${escapeHtml(raw)}</strong>: o que faz, público-alvo e região de atuação.`
+    )
+    return
+  }
+
+  if (step.value === 'about') {
+    leadData.value.about = raw
+    step.value = 'colors'
+    await botReply(
+      'A empresa já possui <strong>cores predefinidas</strong> (identidade visual)? Informe as cores ou códigos HEX, ou escolha uma opção:'
+    )
+    return
+  }
+
+  if (step.value === 'colors') {
+    leadData.value.colors = raw
+    step.value = 'hosting'
+    await botReply('Você já possui <strong>hospedagem</strong> contratada para o site/sistema?')
+    return
+  }
+
+  if (step.value === 'hosting') {
+    leadData.value.hosting = raw
+    const noHosting = /^n(ã|a)o\b/i.test(raw) || /n(ã|a)o tenho/i.test(raw)
+    if (noHosting) {
+      await botReply(
+        `Sem problemas! Recomendo a <strong>Hostinger</strong>. Pelo meu link você ganha <strong>20% de desconto</strong>:<br><a href="${HOSTINGER_URL}" target="_blank" rel="noopener sponsored" class="chatbot-link">👉 Contratar Hostinger com 20% OFF</a>`,
+        450
+      )
+    }
+    step.value = 'domain'
+    await botReply(
+      'E quanto ao <strong>domínio</strong>? Você já tem um domínio registrado no <strong>Registro.br</strong> (ex.: suaempresa.com.br)? Se sim, informe qual.',
+      noHosting ? 700 : 520
+    )
+    return
+  }
+
+  if (step.value === 'domain') {
+    leadData.value.domain = raw
+    const noDomain = /^n(ã|a)o\b/i.test(raw) || /n(ã|a)o tenho/i.test(raw)
+    if (noDomain) {
+      await botReply(
+        `Tranquilo! Domínios <strong>.com.br</strong> são registrados no <a href="${REGISTRO_BR_URL}" target="_blank" rel="noopener" class="chatbot-link">Registro.br</a> (cerca de R$ 40/ano). Posso te orientar no registro depois.`,
+        450
+      )
+    }
     step.value = 'details'
     await botReply(
-      'Perfeito! Conte brevemente sobre o <strong>escopo, objetivo ou urgência</strong> da sua demanda (ou selecione uma opção rápida):'
+      'Perfeito! Por fim, conte brevemente sobre o <strong>escopo, objetivo ou urgência</strong> da sua demanda (ou selecione uma opção rápida):',
+      noDomain ? 700 : 520
     )
     return
   }
@@ -379,12 +468,21 @@ async function handleSubmit() {
     isTyping.value = true
     scrollToBottom()
 
+    const fullDetails = [
+      `Empresa: ${leadData.value.company}`,
+      `Sobre: ${leadData.value.about}`,
+      `Cores: ${leadData.value.colors}`,
+      `Hospedagem: ${leadData.value.hosting}`,
+      `Domínio: ${leadData.value.domain}`,
+      `Escopo: ${leadData.value.details}`
+    ].join(' ; ')
+
     await dispatchLeadToEvolution({
-      name: leadData.value.name,
+      name: leadData.value.company ? `${leadData.value.name} (${leadData.value.company})` : leadData.value.name,
       phone: leadData.value.phone,
       email: leadData.value.email,
       topic: leadData.value.topic,
-      details: leadData.value.details
+      details: fullDetails
     })
 
     isTyping.value = false

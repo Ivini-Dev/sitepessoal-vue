@@ -1303,3 +1303,12 @@ footer > div > img {
         padding: 0.75rem 1.1rem;
     }
 }
+
+.chatbot-bubble-text .chatbot-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: #25d366;
+  font-weight: 600;
+  text-decoration: underline;
+  word-break: break-word;
+}
