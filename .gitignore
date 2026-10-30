@@ -88,3 +88,6 @@ dist
 
 # Vim swap files
 *.swp
+
+# Captured leads local storage
+storage/leads.txt

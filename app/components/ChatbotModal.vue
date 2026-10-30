@@ -177,12 +177,13 @@ const inputRef = ref(null)
 const inputValue = ref('')
 const isTyping = ref(false)
 const isSending = ref(false)
-const step = ref('topic') // 'topic' | 'name' | 'phone' | 'details' | 'completed'
+const step = ref('topic') // 'topic' | 'name' | 'phone' | 'email' | 'details' | 'completed'
 
 const leadData = ref({
   topic: '',
   name: '',
   phone: '',
+  email: '',
   details: ''
 })
 
@@ -196,6 +197,10 @@ const topicChips = [
   'Consultoria / Outro Projeto'
 ]
 
+const emailChips = [
+  'Prefiro receber orçamento apenas pelo WhatsApp'
+]
+
 const detailChips = [
   'Urgente — Preciso iniciar o quanto antes',
   'Já tenho escopo e busco orçamento',
@@ -204,6 +209,7 @@ const detailChips = [
 
 const currentQuickReplies = computed(() => {
   if (step.value === 'topic') return topicChips
+  if (step.value === 'email') return emailChips
   if (step.value === 'details') return detailChips
   return []
 })
@@ -216,6 +222,8 @@ const inputPlaceholder = computed(() => {
       return 'Digite seu nome (e empresa, se desejar)...'
     case 'phone':
       return '(85) 99999-9999 (Seu WhatsApp com DDD)'
+    case 'email':
+      return 'seu@email.com.br (opcional para envio de orçamento)'
     case 'details':
       return 'Descreva brevemente o escopo ou objetivo...'
     default:
@@ -287,16 +295,19 @@ function buildFallbackWhatsAppUrl() {
     ``,
     `*Nome:* ${leadData.value.name}`,
     `*WhatsApp:* ${leadData.value.phone}`,
+    leadData.value.email ? `*E-mail:* ${leadData.value.email}` : null,
     `*Interesse:* ${leadData.value.topic}`,
     `*Detalhes:* ${leadData.value.details}`
-  ].join('\n')
+  ]
+    .filter(Boolean)
+    .join('\n')
   return `https://wa.me/5585991179809?text=${encodeURIComponent(text)}`
 }
 
 async function initConversation() {
   messages.value = []
   step.value = 'topic'
-  leadData.value = { topic: '', name: '', phone: '', details: '' }
+  leadData.value = { topic: '', name: '', phone: '', email: '', details: '' }
   inputValue.value = ''
 
   addMessage(
@@ -360,6 +371,16 @@ async function handleSubmit() {
       return
     }
     leadData.value.phone = formatPhoneMask(digits)
+    step.value = 'email'
+    await botReply(
+      'Qual é o seu <strong>e-mail</strong> para enviarmos o link do orçamento e contrato pelo Portal de Clientes (ou clique abaixo para receber apenas no WhatsApp)?'
+    )
+    return
+  }
+
+  if (step.value === 'email') {
+    const isSkip = raw.toLowerCase().includes('apenas pelo whatsapp') || raw.toLowerCase() === 'pular'
+    leadData.value.email = isSkip ? '' : raw
     step.value = 'details'
     await botReply(
       'Perfeito! Conte brevemente sobre o <strong>escopo, objetivo ou urgência</strong> da sua demanda (ou selecione uma opção rápida):'
@@ -377,6 +398,7 @@ async function handleSubmit() {
     const result = await dispatchLeadToEvolution({
       name: leadData.value.name,
       phone: leadData.value.phone,
+      email: leadData.value.email,
       topic: leadData.value.topic,
       details: leadData.value.details
     })
