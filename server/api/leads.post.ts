@@ -39,10 +39,10 @@ export default defineEventHandler(async (event) => {
   await fs.appendFile(rootFilePath, `${line}\n`, 'utf-8')
   await fs.appendFile(storageFilePath, `${line}\n`, 'utf-8')
 
-  // Sincroniza também com o backend do clientes.ivini.dev (local container 8004 e remoto)
+  // Sincroniza também com o backend do cliente.ivini.dev (local container 8004 e produção)
   const forwardTargets = [
     'http://127.0.0.1:8004/api/leads',
-    'https://clientes.ivini.dev/api/leads'
+    'https://cliente.ivini.dev/api/leads'
   ]
 
   await Promise.allSettled(

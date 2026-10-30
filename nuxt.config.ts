@@ -66,7 +66,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      leadsApiUrl: process.env.NUXT_PUBLIC_LEADS_API_URL || 'https://clientes.ivini.dev/api/leads',
+      leadsApiUrl: process.env.NUXT_PUBLIC_LEADS_API_URL || 'https://cliente.ivini.dev/api/leads',
       evolution: {
         apiUrl: process.env.NUXT_PUBLIC_EVOLUTION_API_URL || 'https://bot.buxin.com.br',
         instance: process.env.NUXT_PUBLIC_EVOLUTION_INSTANCE || 'IviniLeadsBots',

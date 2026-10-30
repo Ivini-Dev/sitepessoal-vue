@@ -81,26 +81,11 @@ export function useChatbot() {
       }
     }
 
-    const remoteUrl = String(config.public?.leadsApiUrl || 'https://clientes.ivini.dev/api/leads').trim()
+    const remoteUrl = String(config.public?.leadsApiUrl || 'https://cliente.ivini.dev/api/leads').trim()
     let savedRemotely = false
     let savedLocally = false
 
-    // 2. Envia para a rota local (/api/leads) que grava leads.txt e sincroniza com clientes.ivini.dev
-    try {
-      const localRes = await fetch('/api/leads', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
-      savedLocally = localRes.ok
-    } catch (_) {
-      savedLocally = false
-    }
-
-    // 3. Envia diretamente para clientes.ivini.dev/api/leads (útil em deploy estático)
+    // 2. Envia diretamente para cliente.ivini.dev/api/leads (produção e local)
     if (remoteUrl) {
       try {
         const res = await fetch(remoteUrl, {
@@ -115,6 +100,21 @@ export function useChatbot() {
       } catch (_) {
         savedRemotely = false
       }
+    }
+
+    // 3. Envia também para a rota local (/api/leads) quando disponível
+    try {
+      const localRes = await fetch('/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      savedLocally = localRes.ok
+    } catch (_) {
+      savedLocally = false
     }
 
     return {
