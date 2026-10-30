@@ -882,14 +882,17 @@ footer > div > img {
 .trust-item {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.5rem;
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-main);
 }
 
 .trust-icon {
-    font-size: 0.95rem;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--gold-accent);
 }
 
 .trust-divider {
