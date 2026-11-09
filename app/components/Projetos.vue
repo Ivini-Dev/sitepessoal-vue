@@ -203,7 +203,7 @@ const projects = [
     id: 'clientes-ivini',
     title: 'Portal de Clientes & Faturamento',
     description: 'Sistema corporativo de faturamento, homologação de entregas, assinatura de contratos digitais e checkout transparente (PIX e Cartão via Mercado Pago) com liberação automatizada para clientes.',
-    url: 'https://clientes.ivini.dev',
+    url: 'https://cliente.ivini.dev',
     tags: [
       'PHP / Laravel',
       'Nuxt.js',
@@ -291,23 +291,89 @@ const projects = [
   {
     id: 'ajeita-cursos',
     title: 'Ajeita Cursos',
-    description: 'Plataforma SaaS full-stack que converte PDFs e temas em cursos estruturados usando inteligência artificial (Google Gemini e Grok).',
+    description: 'Plataforma SaaS full-stack que converte PDFs e temas em cursos estruturados usando inteligência artificial (Google Gemini e Grok), com painel do instrutor, geração de quizzes e exportação.',
     url: 'https://ajeitacursos.com.br/',
     tags: [
-      'Vue.js',
+      'Vue.js 3',
       'TailwindCSS',
       'PHP / Laravel',
+      'Laravel Sanctum',
       'Google Cloud',
-      'MySQL',
-      'Docker',
+      'MySQL & Docker',
       'Rest Api',
       'Api Stripe'
     ],
     images: [
       {
-        src: '/images/ajeita-cursos.webp',
-        alt: 'Ajeita Cursos - Plataforma de Cursos Online Gerados por IA',
-        subHtml: '<h4>Ajeita Cursos - Gerador de Cursos com IA</h4><p>Estruturação automática de módulos, aulas e quizzes interativos a partir de temas ou documentos PDF.</p>'
+        src: '/images/ajeita-cursos-dashboard.webp',
+        alt: 'Ajeita Cursos - Dashboard do Instrutor com Métricas e Cota Mensal',
+        subHtml: '<h4>Ajeita Cursos - Painel do Instrutor</h4><p>Visão geral de cursos criados, consumo da cota mensal, créditos extras e histórico de projetos.</p>'
+      },
+      {
+        src: '/images/ajeita-cursos-estrutura.webp',
+        alt: 'Ajeita Cursos - Visualização Pedagógica de Módulos, Lições e Quizzes',
+        subHtml: '<h4>Estrutura Curricular Gerada por IA</h4><p>Módulos, lições sequenciais, testes de fixação interativos com gabarito e exportação em Markdown.</p>'
+      },
+      {
+        src: '/images/ajeita-cursos-meus-rascunhos.webp',
+        alt: 'Ajeita Cursos - Catálogo de Rascunhos e Cursos Gerados',
+        subHtml: '<h4>Catálogo de Cursos Criados</h4><p>Gerenciamento de cursos com tags de processamento de IA, data e acesso rápido aos detalhes.</p>'
+      },
+      {
+        src: '/images/ajeita-cursos-gerar.webp',
+        alt: 'Ajeita Cursos - Gerador Inteligente por Tema',
+        subHtml: '<h4>Gerador de Cursos com IA</h4><p>Criação instantânea de ementas completas a partir de temas ou transcrição de arquivos PDF.</p>'
+      },
+      {
+        src: '/images/ajeita-cursos-login.webp',
+        alt: 'Ajeita Cursos - Portal de Autenticação e Login',
+        subHtml: '<h4>Autenticação SPA Segura</h4><p>Login com cookies de sessão protegidos via Laravel Sanctum e controle de planos de assinatura.</p>'
+      },
+      {
+        src: '/images/ajeita-cursos-landing.webp',
+        alt: 'Ajeita Cursos - Landing Page Oficial',
+        subHtml: '<h4>Landing Page & Proposta de Valor</h4><p>Página de conversão apresentando os recursos de IA pedagógica e compatibilidade com plataformas EAD.</p>'
+      }
+    ]
+  },
+  {
+    id: 'quiz-valorant',
+    title: 'Quiz Valorant',
+    description: 'Aplicação interativa de quiz temático do universo FPS Valorant desenvolvida com Next.js e Styled Components, com pontuação em tempo real, feedbacks visuais dinâmicos e ranking de participantes.',
+    url: 'https://quiz-valorant.vercel.app/',
+    tags: [
+      'React.js',
+      'Next.js',
+      'Styled Components',
+      'Vercel Serverless',
+      'Gamificação',
+      'State Management'
+    ],
+    images: [
+      {
+        src: '/images/valorant-quiz-home.webp',
+        alt: 'Quiz Valorant - Tela Inicial e Seleção de Jogador',
+        subHtml: '<h4>Quiz Valorant - Apresentação & Início do Jogo</h4><p>Interface temática com visual oficial do game, formulário para identificação do soldado e galeria de quizes comunitários.</p>'
+      },
+      {
+        src: '/images/valorant-quiz-question.webp',
+        alt: 'Quiz Valorant - Pergunta e Alternativas Interativas',
+        subHtml: '<h4>Dinâmica de Perguntas & Alternativas</h4><p>Rodadas com perguntas de conhecimento tático, imagens contextualizadas e sistema de alternativas radio estilizadas.</p>'
+      },
+      {
+        src: '/images/valorant-quiz-feedback.webp',
+        alt: 'Quiz Valorant - Feedback Imediato de Resposta Certa ou Errada',
+        subHtml: '<h4>Feedback Imediato de Resposta</h4><p>Validação em tempo real com realce de status visual antes de avançar para a próxima rodada.</p>'
+      },
+      {
+        src: '/images/valorant-quiz-result.webp',
+        alt: 'Quiz Valorant - Tela Final de Pontuação e Gabarito',
+        subHtml: '<h4>Relatório Final de Resultados</h4><p>Resumo da pontuação final, exibição do total de acertos e conferência detalhada do gabarito de todas as questões.</p>'
+      },
+      {
+        src: '/images/valorant-quiz-start.webp',
+        alt: 'Quiz Valorant - Identificação e Liberação de Partida',
+        subHtml: '<h4>Validação de Estado do Formulário</h4><p>Habilitação dinâmica do botão de início após preenchimento do nome do jogador.</p>'
       }
     ]
   }

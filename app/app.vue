@@ -218,7 +218,7 @@ const schemaData = {
           'item': {
             '@type': 'WebApplication',
             'name': 'Portal de Clientes & Faturamento Ivini.dev',
-            'url': 'https://clientes.ivini.dev',
+            'url': 'https://cliente.ivini.dev',
             'applicationCategory': 'BusinessApplication',
             'operatingSystem': 'Web',
             'image': 'https://ivini.dev/images/clientes-painel.webp',
@@ -249,8 +249,22 @@ const schemaData = {
             'url': 'https://ajeitacursos.com.br/',
             'applicationCategory': 'EducationalApplication',
             'operatingSystem': 'Web',
-            'image': 'https://ivini.dev/images/ajeita-cursos.webp',
+            'image': 'https://ivini.dev/images/ajeita-cursos-dashboard.webp',
             'description': 'Plataforma SaaS full-stack que converte PDFs e temas em cursos estruturados e interativos utilizando Inteligência Artificial (Google Gemini e Grok).',
+            'author': { '@id': 'https://ivini.dev/#person' }
+          }
+        },
+        {
+          '@type': 'ListItem',
+          'position': 6,
+          'item': {
+            '@type': 'WebApplication',
+            'name': 'Quiz Valorant',
+            'url': 'https://quiz-valorant.vercel.app/',
+            'applicationCategory': 'GameApplication',
+            'operatingSystem': 'Web',
+            'image': 'https://ivini.dev/images/valorant-quiz-home.webp',
+            'description': 'Aplicação gamificada de quiz temático do FPS Valorant com Next.js, Styled Components e feedback interativo em tempo real.',
             'author': { '@id': 'https://ivini.dev/#person' }
           }
         }

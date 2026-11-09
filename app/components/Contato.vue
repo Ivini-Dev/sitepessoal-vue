@@ -14,7 +14,7 @@
       <span class="trust-divider" aria-hidden="true">•</span>
       <a href="https://www.linkedin.com/in/johnatanivini" target="_blank" rel="noopener noreferrer" class="contact-channel-link">LinkedIn (Johnatan Ivini) ↗</a>
       <span class="trust-divider" aria-hidden="true">•</span>
-      <a href="https://clientes.ivini.dev" target="_blank" rel="noopener noreferrer" class="contact-channel-link">Portal de Clientes ↗</a>
+      <a href="https://cliente.ivini.dev" target="_blank" rel="noopener noreferrer" class="contact-channel-link">Portal de Clientes ↗</a>
     </div>
   </section>
 </template>

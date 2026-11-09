@@ -7,7 +7,7 @@
 - **Especialista Responsável:** Johnatan Ivini (Desenvolvedor Full Stack Sênior & Arquiteto de Software)
 - **Marca / Consultoria:** Ivini.dev — Soluções em Tecnologia
 - **Website Oficial:** https://ivini.dev/
-- **Portal de Clientes:** https://clientes.ivini.dev/
+- **Portal de Clientes:** https://cliente.ivini.dev/
 - **WhatsApp Comercial:** https://wa.me/5585991179809
 - **GitHub:** https://github.com/johnatanivini
 - **LinkedIn:** https://www.linkedin.com/in/johnatanivini
@@ -32,7 +32,7 @@
 
 - **[Buxin](https://web.buxin.com.br):** Plataforma SaaS White Label para gestão de delivery e automação de pedidos para restaurantes e açaíterias, com painel Kanban em tempo real, cardápio digital customizável e pagamentos integrados via Stripe e PIX sem taxas de intermediação.
 - **[Reforcy](https://reforcy.com.br):** Plataforma SaaS para professores particulares e tutores que centraliza gestão de alunos, agenda semanal, geração de planos de aula e listas de exercícios com Inteligência Artificial, diário de classe, fluxo de caixa e lembretes automáticos via WhatsApp.
-- **[Portal de Clientes & Faturamento Ivini.dev](https://clientes.ivini.dev):** Sistema corporativo próprio para gestão de contratos digitais, homologação visual de sprints/entregas, chat técnico e checkout transparente (PIX e Cartão via Mercado Pago).
+- **[Portal de Clientes & Faturamento Ivini.dev](https://cliente.ivini.dev):** Sistema corporativo próprio para gestão de contratos digitais, homologação visual de sprints/entregas, chat técnico e checkout transparente (PIX e Cartão via Mercado Pago).
 - **[Ivini LeadBot](https://ivini-leads-bots.ivini.dev):** Ecossistema B2B de prospecção automatizada com web scraping assíncrono no Google Maps (Python/Playwright), enriquecimento de leads, geração automática de Landing Pages com IA Híbrida (Ollama Local + Groq Cloud) e abordagem comercial via WhatsApp (Evolution API + Redis Queues).
 - **[Ajeita Cursos](https://ajeitacursos.com.br/):** Plataforma SaaS educacional que converte apostilas em PDF e temas específicos em cursos online estruturados com módulos, aulas e quizzes interativos gerados via IA (Google Gemini & Grok).
 

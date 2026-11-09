@@ -29,7 +29,7 @@
   - **Gestão Financeira & Cobrança:** Dashboard de receitas esperadas vs. recebidas, taxa de adimplência e envio automatizado de lembretes e relatórios de evolução via WhatsApp.
 - **Stack:** PHP 8, Laravel, Nuxt.js, TailwindCSS, Inteligência Artificial Generativa, Automação WhatsApp, MySQL, Redis, Docker.
 
-### 2.3. Portal de Clientes & Faturamento Ivini.dev (https://clientes.ivini.dev)
+### 2.3. Portal de Clientes & Faturamento Ivini.dev (https://cliente.ivini.dev)
 - **Problema Resolvido:** Formalização contratual, transparência na homologação de software sob medida e agilidade no faturamento B2B.
 - **Arquitetura & Funcionalidades:**
   - Painel administrativo para cadastro de projetos, definição de escopo técnico, vínculo com repositórios GitHub e geração de faturas flexíveis (pagamento integral ou 50/50 por marco de entrega).
